@@ -1,6 +1,5 @@
 # handwrittenDigitSequenceRec
 
-------------
 
 ## My software environment:
 
@@ -8,13 +7,11 @@
 - Python 3.5
 - Tensorflow 1.1
 
-----------
 
 ## Structure:
 
 It is a simplified version of handwriting sequence recognition. The datasets are digit sequences and labels which are based on MNIST datasets, and you can set the length of the sequence using get_mnist_data() function in **mnist.py**. In the model, LSTM and CTC are used.
 
--------------
 
 ## Visualize demo:
 
@@ -29,7 +26,6 @@ The **showCTC.py** file is a demo for visualizing the prediction:
 - The 100th iteration, batch_cost: 0.118
 ![](https://user-images.githubusercontent.com/9562709/27639592-f7b39b44-5c16-11e7-8698-7d026ea84f70.png)
 
---------------
 
 ## TroubleShooting:
 
