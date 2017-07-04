@@ -1,2 +1,4 @@
 *.gz
 __pycache__/
+visTest/
+backup.py
