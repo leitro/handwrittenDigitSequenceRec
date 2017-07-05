@@ -18,6 +18,8 @@ The CNN is used to extract high level features of the datasets, and LSTM is used
 
 In the train() function of Class SeqLearn, test_flag can be set True to show the label error rate of test datasets, and visual_flag can be set True to visualize the prediction result before CTC. Both of the flags are set True by default.
 
+Note: When the visual_flag is to be set True, do remember to create a folder named **visTest**, where you can find the saved images for visualization in.
+
 - The 1st iteration, label_error_rate: 1.000
 ![1](https://user-images.githubusercontent.com/9562709/27832083-a53c60b0-60cd-11e7-8e7d-16a01c727b0e.jpg)
 
