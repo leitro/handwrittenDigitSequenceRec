@@ -15,7 +15,6 @@ class SeqLearn():
         self.batch_size = 200
         self.n_classes = 10
         self.n_hidden = 32
-        self.n_cnn = 32
         self.n_layers = 1
         self.learning_rate = 1e-2
         self.n_epochs = 400
@@ -27,18 +26,22 @@ class SeqLearn():
         self.y = tf.sparse_placeholder(tf.int32)
         self.seqLen = tf.placeholder(tf.int32, [None])
 
-        shape = tf.shape(self.x)
-        batch_s = shape[0]
-        xx = tf.transpose(self.x, (2, 0, 1)) # (t_steps, batch_size, n_features)
+        #<CNN>
+        batch_s = tf.shape(self.x)[0]
+        conv = tf.reshape(self.x, shape=[batch_s, self.n_features, -1, 1])
+        w_conv = tf.Variable(tf.random_normal([5, 5, 1, 32]))
+        b_conv = tf.Variable(tf.constant(0., shape=[32]))
+        conv = tf.nn.conv2d(conv, w_conv, strides=[1, 1, 1, 1], padding='SAME')
+        conv = tf.nn.bias_add(conv, b_conv)
+        conv = tf.nn.relu(conv)
+        #conv = tf.nn.max_pool(conv, ksize=[1, 2, 2, 1], strides=[1, 2, 2, 1], padding='SAME')
+        shapeConv = tf.shape(conv) # (batch_size, features/2, time_step/2, channels==32)
+        xx = tf.transpose(conv, (2, 0, 1, 3)) # (time/2, batch, features/2, channels==32)
+        xx = tf.reshape(xx, [-1, batch_s, self.n_features*32]) # (time/2, batch, features/2 * 32)
+        #</CNN>
 
-        x1 = tf.reshape(xx, [-1, self.n_features])
-        weight1 = tf.Variable(tf.random_normal([self.n_features, self.n_cnn]))
-        bias1 = tf.Variable(tf.constant(0., shape=[self.n_cnn]))
-        y1 = tf.matmul(x1, weight1) + bias1
-
-        x2 = tf.reshape(y1, [-1, batch_s, self.n_cnn])
         lstm_cell = rnn.BasicLSTMCell(self.n_hidden)
-        outputs, states = tf.nn.dynamic_rnn(lstm_cell, x2, self.seqLen, dtype=tf.float32, time_major=True)
+        outputs, states = tf.nn.dynamic_rnn(lstm_cell, xx, self.seqLen, dtype=tf.float32, time_major=True)
         outputs = tf.reshape(outputs, [-1, self.n_hidden])
         weight2 = tf.Variable(tf.random_normal([self.n_hidden, self.n_classes+1]))
         bias2 = tf.Variable(tf.constant(0., shape=[self.n_classes+1]))
