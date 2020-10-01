@@ -1,4 +1,4 @@
-# handwrittenDigitSequenceRec
+# Handwritten Digits Sequence Recognition
 
 
 ## My software environment:
@@ -10,9 +10,9 @@
 
 ## Structure:
 
-It is a handwriting digits sequence recognition system. The datasets are digit sequences and labels which are based on MNIST datasets, and you can set the length of the training and testing sequence data by giving N_DIGITS_TR and N_DIGITS_TE the specific values in **handwrittenSequenceCTC.py**.
+It is a handwritten digits sequence recognition system. The datasets used are digits sequences and labels which are based on MNIST datasets, and you can set the length of the training and testing sequence data by giving N_DIGITS_TR and N_DIGITS_TE the specific values in **handwrittenSequenceCTC.py**.
 
-The CNN is used to extract high level features of the datasets, and LSTM is used to build the sequence to sequence model, and CTC is used as the loss function.
+A CNN is used to extract high level features from the datasets, LSTM is used to build the sequence to sequence model, and CTC is used as the loss function.
 
 ## Visualize Prediction Result Before CTC:
 
@@ -65,4 +65,4 @@ decoded without merge:
 ```
 
 ## Result:
-After 400 epochs, the label error rate of test datasets has decreased to 0.048, the prediction accuracy has reached to 95.3%. 
+After 400 epochs, the label error rate of test dataset has decreased to 0.048, the prediction accuracy has reached 95.3%. 
